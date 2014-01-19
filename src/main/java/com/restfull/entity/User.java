@@ -1,19 +1,22 @@
 package com.restfull.entity;
 
-import static javax.persistence.GenerationType.AUTO;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table
-public class User {
+public class User implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private long id;
 
@@ -28,6 +31,9 @@ public class User {
 
 	@Column(length = 50, nullable = false)
 	private String password;
+
+	@ManyToOne
+	private Role role;
 
 	User() {
 		// for hibernate.
@@ -59,6 +65,10 @@ public class User {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public Role getRole() {
+		return role;
 	}
 
 }
